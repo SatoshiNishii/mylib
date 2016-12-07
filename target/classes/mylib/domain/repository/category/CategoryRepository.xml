@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- (1) -->
+<mapper namespace="mylib.domain.repository.category.CategoryRepository">
+
+    <!-- (2) -->
+    <resultMap id="categoryResultMap" type="category">
+        <id property="categoryCd" column="category_cd" />
+        <result property="categoryNm" column="category_nm" />
+    </resultMap>
+
+    <!-- (3) -->
+    <select id="findOne" parameterType="String" resultMap="categoryResultMap">
+    <![CDATA[
+        SELECT
+            category_cd,
+            category_nm
+        FROM
+            category
+        WHERE
+            category_cd = #{categoryCd}
+    ]]>
+    </select>
+
+    <!-- (4) -->
+    <select id="findAll" resultMap="categoryResultMap">
+    <![CDATA[
+        SELECT
+            category_cd,
+            category_nm
+        FROM
+            category
+    ]]>
+    </select>
+
+    <!-- (5) -->
+    <insert id="create" parameterType="category">
+    <![CDATA[
+        INSERT INTO category
+        (
+            category_cd,
+            category_nm
+        )
+        VALUES
+        (
+            #{categoryCd},
+            #{categoryNm}
+        )
+    ]]>
+    </insert>
+
+    <!-- (6) -->
+    <update id="update" parameterType="category">
+    <![CDATA[
+        UPDATE category
+        SET
+            category_nm = #{categoryNm}
+        WHERE
+            category_cd = #{categoryCd}
+    ]]>
+    </update>
+
+    <!-- (7) -->
+    <delete id="delete" parameterType="category">
+    <![CDATA[
+        DELETE FROM
+            category
+        WHERE
+            category_cd = #{categoryCd}
+    ]]>
+    </delete>
+</mapper>
